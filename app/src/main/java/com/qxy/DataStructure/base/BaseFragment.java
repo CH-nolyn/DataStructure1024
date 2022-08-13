@@ -26,7 +26,7 @@ public abstract class BaseFragment extends Fragment {
         return contentView;
     }
 
-    protected <T extends View> T find(@IdRes int id){
-        return contentView.findViewById(id);
-    }
+//    protected <T extends View> T find(@IdRes int id){
+//        return contentView.findViewById(id);
+//    }
 }

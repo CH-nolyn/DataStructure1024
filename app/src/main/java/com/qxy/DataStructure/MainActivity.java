@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
@@ -162,7 +163,10 @@ public class MainActivity extends AppCompatActivity {
                 .subscribe(new Consumer<ClientToken>() {
                     @Override
                     public void accept(ClientToken clientToken) throws Throwable {
-                        Log.i("test", clientToken.getData().getAccess_token());
+                        SharedPreferences sharedPreferences = getSharedPreferences("Client",MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putString("clientToken",clientToken.getData().getAccess_token());
+                        editor.commit();
                     }
                 }, new Consumer<Throwable>() {
                     @Override

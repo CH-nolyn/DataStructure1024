@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="150dp">
+
+
+    <ImageView
+        android:id="@+id/VarietyImage"
+        android:layout_width="80dp"
+        android:layout_height="120dp"
+        android:layout_marginStart="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/pic_load" />
+
+    <TextView
+        android:id="@+id/VarietyName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="30dp"
+        android:textColor="#000000"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/VarietyImage"
+        app:layout_constraintTop_toTopOf="@+id/VarietyImage" />
+
+    <TextView
+        android:id="@+id/VarietyEnName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="40dp"
+        app:layout_constraintEnd_toEndOf="@+id/VarietyName"
+        app:layout_constraintStart_toStartOf="@+id/VarietyName"
+        app:layout_constraintTop_toBottomOf="@+id/VarietyName" />
+
+    <TextView
+        android:id="@+id/VarietyPersonName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="30dp"
+        app:layout_constraintEnd_toEndOf="@+id/VarietyEnName"
+        app:layout_constraintStart_toStartOf="@+id/VarietyEnName"
+        app:layout_constraintTop_toBottomOf="@+id/VarietyEnName" />
+
+    <TextView
+        android:id="@+id/VarietyDate"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        app:layout_constraintEnd_toEndOf="@+id/VarietyPersonName"
+        app:layout_constraintStart_toStartOf="@+id/VarietyPersonName"
+        app:layout_constraintTop_toBottomOf="@+id/VarietyPersonName" />
+</androidx.constraintlayout.widget.ConstraintLayout>
