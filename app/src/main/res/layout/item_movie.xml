@@ -1,6 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="150dp">
+
+
+    <ImageView
+        android:id="@+id/MovieImage"
+        android:layout_width="80dp"
+        android:layout_height="120dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/pic_load" />
+
+    <TextView
+        android:id="@+id/MovieName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="25dp"
+        android:textColor="#000000"
+        android:textSize="21sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/MovieImage"
+        app:layout_constraintTop_toTopOf="@+id/MovieImage" />
+
+    <TextView
+        android:id="@+id/MoviePersonName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        app:layout_constraintStart_toStartOf="@+id/MovieName"
+        app:layout_constraintTop_toBottomOf="@+id/MovieName" />
+
+    <TextView
+        android:id="@+id/MovieActorName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        app:layout_constraintEnd_toEndOf="@+id/MovieName"
+        app:layout_constraintStart_toEndOf="@+id/MoviePersonName"
+        app:layout_constraintTop_toTopOf="@+id/MoviePersonName" />
+
+    <TextView
+        android:id="@+id/MovieDateArea"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        app:layout_constraintEnd_toEndOf="@+id/MovieActorName"
+        app:layout_constraintStart_toStartOf="@+id/MoviePersonName"
+        app:layout_constraintTop_toBottomOf="@+id/MovieActorName" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
