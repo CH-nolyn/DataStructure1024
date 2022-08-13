@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/buttom_movie"
+        android:title="抖音电影榜"/>
+    <!--        android:icon="@drawable/ic_buttom_home_24"-->
+
+    <item
+        android:id="@+id/buttom_variety"
+        android:title="抖音综艺榜" />
+    <!--        android:icon="@drawable/ic_hb_in_24"-->
+    <item
+        android:id="@+id/buttom_tv"
+        android:title="抖音电视剧榜"/>
+    <!--        android:icon="@drawable/ic_buttom_message_24"-->
+</menu>

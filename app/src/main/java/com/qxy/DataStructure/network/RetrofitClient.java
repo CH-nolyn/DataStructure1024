@@ -8,7 +8,7 @@ public class RetrofitClient {
 
     private static volatile RetrofitClient mInstance;
 
-    private static final String BASE_URL = "com.qxy.DataStructure";
+    private static final String BASE_URL = "https://open.douyin.com/";
 
     private RetrofitClient(){}
 

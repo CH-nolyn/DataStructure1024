@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -24,17 +25,35 @@ import com.bytedance.sdk.open.aweme.base.VideoObject;
 import com.bytedance.sdk.open.aweme.share.Share;
 import com.bytedance.sdk.open.douyin.DouYinOpenApiFactory;
 import com.bytedance.sdk.open.douyin.api.DouYinOpenApi;
+import com.qxy.DataStructure.bean.ClientToken;
+import com.qxy.DataStructure.network.RetrofitClient;
+import com.qxy.DataStructure.network.Service.UserService;
+import com.qxy.DataStructure.utils.CommonUtils;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.functions.Consumer;
+import io.reactivex.rxjava3.schedulers.Schedulers;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 
 /**
  * 抖音、tiktok share功能测试类
- *
+ * <p>
  * 注意：因为涉及clientkey及包名的鉴权
- *
+ * <p>
  * 此sdk demo并不能直接跑通整个分享流程；
- *
+ * <p>
  * 建议使用者直接在自己app内设置好clientkey等字段后接入调试;
  */
 public class MainActivity extends AppCompatActivity {
@@ -42,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
     DouYinOpenApi douYinOpenApi;
 
 
-    String[] mPermissionList = new String[] {
+    String[] mPermissionList = new String[]{
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
             Manifest.permission.READ_EXTERNAL_STORAGE};
 
@@ -53,6 +72,8 @@ public class MainActivity extends AppCompatActivity {
     Button mAddMedia;
 
     Button mClearMedia;
+
+    Button mRank;
 
     Button authbt;
     EditText mSetDefaultHashTag;
@@ -78,11 +99,12 @@ public class MainActivity extends AppCompatActivity {
         mAddMedia = findViewById(R.id.add_photo_video);
         mClearMedia = findViewById(R.id.clear_media);
         authbt = findViewById(R.id.auth_bt);
+        mRank = findViewById(R.id.rank);
 
         /**
          * 以下代码只方便测试
          */
-        findViewById(R.id.go_to_system_picture).setOnClickListener( new View.OnClickListener() {
+        findViewById(R.id.go_to_system_picture).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ActivityCompat.requestPermissions(MainActivity.this, mPermissionList, 100);
@@ -113,17 +135,48 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Authorization.Request request = new Authorization.Request();
-                request.scope = "user_info";                          // 用户授权时必选权限
+                request.scope = "user_info,trial.whitelist";    // 用户授权时必选权限
 //                request.optionalScope1 = mOptionalScope2;     // 用户授权时可选权限（默认选择）
 //                request.optionalScope0 = mOptionalScope1;    // 用户授权时可选权限（默认不选）
                 request.state = "ww";                                   // 用于保持请求和回调的状态，授权请求后原样带回给第三方。
                 douYinOpenApi.authorize(request);               // 优先使用抖音app进行授权，如果抖音app因版本或者其他原因无法授权，则使用wap页授权
             }
         });
+
+        mRank.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this,RankActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        HashMap<String,String> map =new HashMap<>();
+        map.put("client_key", "awjrtgz1pvt3ahpn");
+        map.put("client_secret", "0cbd75db007d0bdc5f636fe571159d17");
+        map.put("grant_type", "client_credential");
+        RetrofitClient.getInstance().getService(UserService.class)
+                .getClientToken(CommonUtils.generateRequestBody(map))
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<ClientToken>() {
+                    @Override
+                    public void accept(ClientToken clientToken) throws Throwable {
+                        Log.i("test", clientToken.getData().getAccess_token());
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Throwable {
+                        Toast.makeText(MainActivity.this, throwable.toString(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+
     }
 
     /**
      * share 功能示例代码
+     *
      * @param shareType
      * @return
      */
@@ -157,7 +210,7 @@ public class MainActivity extends AppCompatActivity {
 
 //                 可以通过callerLocalEntry设置自己接收回调的类，不必非得用TikTokEntryActivity
 //                request.callerLocalEntry = "com.xxx.xxx...activity";
-                  //如果拥有默认话题权限，则可通过这个变量设置默认话题
+                //如果拥有默认话题权限，则可通过这个变量设置默认话题
 //                request.mHashTag = "设置我的默认话题";
 
                 // 0.0.1.1版本新增分享带入小程序功能，具体请看官网 对应抖音及tiktok版本6.7.0

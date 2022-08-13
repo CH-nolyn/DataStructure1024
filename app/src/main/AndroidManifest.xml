@@ -2,19 +2,19 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.qxy.DataStructure">
 
-
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <queries>
-        <!--允许查询抖音和抖音极速版的软件包信息-->
+
+        <!-- 允许查询抖音和抖音极速版的软件包信息 -->
         <package android:name="com.ss.android.ugc.aweme" />
         <package android:name="com.ss.android.ugc.aweme.lite" />
     </queries>
 
     <application
-        android:name="com.qxy.DataStructure.CustomApplication"
+        android:name=".CustomApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -22,8 +22,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <activity android:name="com.qxy.DataStructure.MainActivity">
+        <activity
+            android:name=".RankActivity"
+            android:exported="false" />
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -31,10 +33,10 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.qxy.DataStructure.douyinapi.DouYinEntryActivity"
+            android:name=".douyinapi.DouYinEntryActivity"
+            android:exported="true"
             android:launchMode="singleTop"
-            android:taskAffinity="com.qxy.DataStructure"
-            android:exported="true"></activity>
-
+            android:taskAffinity="com.qxy.DataStructure" />
     </application>
+
 </manifest>
